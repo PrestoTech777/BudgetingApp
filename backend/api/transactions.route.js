@@ -13,7 +13,21 @@ router
   })
   .post((req, res) => {
     Transactions.create(req.body, (err, transaction) => {
-      res.send(transaction);
+      Totals.findOne({}, (err, total) => {
+        const value = {
+          debits: 0,
+          credits: 0,
+        };
+        value.date = new Date(Date.now());
+        transaction.debit === true
+          ? (value.debits = Math.ceil(transaction.total) + total.debits)
+          : (value.credits = Math.floor(transaction.total) + total.credits);
+        value.change = transaction.change + total.change;
+        console.log(value);
+        Totals.findOneAndUpdate({}, value, (err, total1) => {
+          res.send(total1);
+        });
+      });
     });
   })
   .put((req, res) => {
