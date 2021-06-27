@@ -45,10 +45,30 @@ router
     });
   });
 
-router.route("/totals").get((req, res) => {
-  Totals.find({}, (err, totals) => {
-    res.send(totals);
+router
+  .route("/totals")
+  .get((req, res) => {
+    Totals.find({}, (err, totals) => {
+      res.send(totals);
+    });
+  })
+  // initialize the running total
+  .post((req, res) => {
+    const obj = {
+      date: Date.now(),
+      credits: 0,
+      debits: 0,
+      change: 0,
+    };
+    Totals.create(obj, (err, totals) => {
+      res.send(totals);
+    });
+  })
+  // reset the running total
+  .delete((req, res) => {
+    Totals.remove({}, (err) => {
+      res.send({ worked: true });
+    });
   });
-});
 
 export default router;
