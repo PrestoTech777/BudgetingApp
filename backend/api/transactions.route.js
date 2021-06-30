@@ -23,7 +23,6 @@ router
           ? (value.debits = Math.ceil(transaction.total) + total.debits)
           : (value.credits = Math.floor(transaction.total) + total.credits);
         value.change = transaction.change + total.change;
-        console.log(value);
         Totals.findOneAndUpdate({}, value, (err, total1) => {
           res.send(total1);
         });
@@ -48,7 +47,7 @@ router
 router
   .route("/totals")
   .get((req, res) => {
-    Totals.find({}, (err, totals) => {
+    Totals.findOne({}, (err, totals) => {
       res.send(totals);
     });
   })
