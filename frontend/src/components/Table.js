@@ -13,8 +13,8 @@ const Table = () => {
               <th scope="col">Change</th>
               <th scope="col">Store</th>
               <th scope="col">User</th>
-              <th></th>
-              <th></th>
+              <th>Edit</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -26,15 +26,13 @@ const Table = () => {
               <td>Walmart</td>
               <td>Caleb</td>
               <td>
-                <a href="#">
+                <a href="/">
                   <FontAwesomeIcon icon="edit" color="orange" />
-                  <i class="fas fa-edit"></i>
                 </a>
               </td>
               <td>
-                <a href="#">
+                <a href="/">
                   <FontAwesomeIcon icon="trash" color="red" />
-                  <i class="fas fa-trash"></i>
                 </a>
               </td>
             </tr>
@@ -46,12 +44,12 @@ const Table = () => {
               <td>Walmart</td>
               <td>Caleb</td>
               <td>
-                <a href="#">
+                <a href="/">
                   <FontAwesomeIcon icon="edit" color="orange" />
                 </a>
               </td>
               <td>
-                <a href="#">
+                <a href="/">
                   <FontAwesomeIcon icon="trash" color="red" />
                 </a>
               </td>
