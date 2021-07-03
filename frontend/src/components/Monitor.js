@@ -10,14 +10,12 @@ export default class Monitor extends Component {
 
   componentDidMount() {
     axios.get(`http://192.168.1.98:5000/api/v1/totals`).then((res) => {
-      console.log(res.data);
       const data = res.data;
       this.setState({
         credits: data.credits,
         debits: data.debits,
         change: data.change,
       });
-      console.log(this.state);
     });
   }
 
