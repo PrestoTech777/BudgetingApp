@@ -5,7 +5,7 @@ export default class Form extends Component {
   constructor(props) {
     super();
     this.state = {
-      debit: null,
+      debit: false,
       total: 0,
       change: 0,
       description: "",
@@ -13,20 +13,32 @@ export default class Form extends Component {
       user: "",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    const { name, value, type, checked } = event.target;
+  handleChange = (event) => {
+    const { name, value } = event.target;
     this.setState({
       [name]: value,
+      change: document.getElementById("change").value,
     });
-    console.log(this.state);
-  }
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(`http://192.168.1.98:5000/api/v1/transactions`, this.state)
+      .then((res) => {
+        console.log("posted", this.state);
+        window.location.href = "/transactions";
+      });
+  };
 
   render() {
     return (
       <div className="container">
-        <form>
+        <form onSubmit={this.handleSubmit} action="/transactions" method="get">
           <div id="creditOrDebit" className="mb-3 mt-3">
             <div className="form-check form-check-inline">
               <input
@@ -35,10 +47,10 @@ export default class Form extends Component {
                 name="debit"
                 id="credit"
                 value="false"
-                // checked={this.state.debit}
                 onChange={this.handleChange}
+                required
               />
-              <label className="form-check-label h5" for="Credit">
+              <label className="form-check-label h5" htmlFor="Credit">
                 Credit
               </label>
             </div>
@@ -49,16 +61,16 @@ export default class Form extends Component {
                 name="debit"
                 id="debit"
                 value="true"
-                // checked={this.state.debit}
                 onChange={this.handleChange}
+                required
               />
-              <label className="form-check-label h5" for="Credit">
+              <label className="form-check-label h5" htmlFor="Credit">
                 Debit
               </label>
             </div>
           </div>
           <div id="totalAndChange">
-            <label for="total" className="form-label h3">
+            <label htmlFor="total" className="form-label h3">
               Total
             </label>
             <div className="input-group">
@@ -69,6 +81,7 @@ export default class Form extends Component {
                 name="total"
                 id="total"
                 onChange={this.handleChange}
+                required
               />
             </div>
             <div className="input-group mb-3">
@@ -78,11 +91,17 @@ export default class Form extends Component {
                 className="form-control"
                 name="change"
                 id="change"
-                value={(Math.ceil(this.state.total) - this.state.total).toFixed(
-                  2
-                )}
+                value={
+                  this.state.debit === "true"
+                    ? (Math.ceil(this.state.total) - this.state.total).toFixed(
+                        2
+                      )
+                    : (this.state.total - Math.floor(this.state.total)).toFixed(
+                        2
+                      )
+                }
+                placeholder="0"
                 disabled
-                onChange={this.handleChange}
               />
             </div>
           </div>
@@ -93,6 +112,7 @@ export default class Form extends Component {
               id="store"
               name="store"
               onChange={this.handleChange}
+              required
             />
           </div>
           <div className="input-group mb-3">
@@ -114,6 +134,7 @@ export default class Form extends Component {
               onChange={this.handleChange}
             />
           </div>
+          <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
       </div>
     );
