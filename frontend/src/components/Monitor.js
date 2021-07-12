@@ -14,7 +14,7 @@ export default class Monitor extends Component {
       this.setState({
         credits: data.credits,
         debits: data.debits,
-        change: data.change,
+        change: data.change.toFixed(2),
         date: data.date,
       });
     });
@@ -46,7 +46,7 @@ export default class Monitor extends Component {
             <h4>$ {this.state.credits - this.state.debits}</h4>
           </div>
           <div className="col-12 col-sm-3 text-center">
-            <FontAwesomeIcon icon="coins" size="5x" color="green" />
+            <FontAwesomeIcon icon="coins" size="5x" color="orange" />
             <h3>
               <u>Change</u>
             </h3>
