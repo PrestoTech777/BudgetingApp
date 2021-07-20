@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import http from '../http-common';
 import moment from "moment";
 
 const Table = () => {
   const [transactions, setTransactions] = useState([]);
   useEffect(() => {
-    axios.get("http://192.168.1.98:5000/api/v1/transactions").then((res) => {
+    http.get("/transactions").then((res) => {
       console.log(res.data);
       setTransactions(res.data);
     });

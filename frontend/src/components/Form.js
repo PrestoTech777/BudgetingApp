@@ -1,5 +1,5 @@
 import { Component } from "react";
-import axios from "axios";
+import http from "../http-common";
 
 export default class Form extends Component {
   constructor(props) {
@@ -27,8 +27,8 @@ export default class Form extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post(`http://192.168.1.98:5000/api/v1/transactions`, this.state)
+    http
+      .post('/transactions', this.state)
       .then((res) => {
         console.log("posted", this.state);
         window.location.href = "/transactions";

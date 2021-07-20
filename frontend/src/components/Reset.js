@@ -1,8 +1,8 @@
-import axios from "axios";
+import http from "../http-common";
 
 const handleClick = () => {
-  axios
-    .delete("http://192.168.1.98:5000/api/v1/deletetransactions")
+  http
+    .delete('/deletetransactions')
     .then((res) => {
       window.location.href = "/";
     });

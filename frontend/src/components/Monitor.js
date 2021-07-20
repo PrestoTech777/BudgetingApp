@@ -1,5 +1,5 @@
 import { Component } from "react";
-import axios from "axios";
+import http from '../http-common'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class Monitor extends Component {
@@ -9,7 +9,7 @@ export default class Monitor extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://192.168.1.98:5000/api/v1/totals`).then((res) => {
+    http.get(`/totals`).then((res) => {
       const data = res.data;
       this.setState({
         credits: data.credits,
